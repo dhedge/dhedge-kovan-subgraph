@@ -1,0 +1,49 @@
+type DaoAddressSet @entity {
+  id: ID!
+  dao: Bytes! # address
+}
+
+type DaoFeeSet @entity {
+  id: ID!
+  numerator: BigInt! # uint256
+  denominator: BigInt! # uint256
+}
+
+type ExitFeeCooldownSet @entity {
+  id: ID!
+  cooldown: BigInt! # uint256
+}
+
+type ExitFeeSet @entity {
+  id: ID!
+  numerator: BigInt! # uint256
+  denominator: BigInt! # uint256
+}
+
+type FundCreated @entity {
+  id: ID!
+  fundAddress: Bytes! # address
+  isPoolPrivate: Boolean! # bool
+  fundName: String! # string
+  managerName: String! # string
+  manager: Bytes! # address
+  time: BigInt! # uint256
+  managerFeeNumerator: BigInt! # uint256
+  managerFeeDenominator: BigInt! # uint256
+}
+
+type MaximumSupportedAssetCountSet @entity {
+  id: ID!
+  count: BigInt! # uint256
+}
+
+type OwnershipTransferred @entity {
+  id: ID!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+}
+
+type ProxyCreated @entity {
+  id: ID!
+  proxy: Bytes! # address
+}

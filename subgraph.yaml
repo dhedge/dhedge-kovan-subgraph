@@ -1,0 +1,44 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Contract
+    network: kovan
+    source:
+      address: "0xc3F42F64AD9A7C55D4e5970459f8CE8069456408"
+      abi: Contract
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.2
+      language: wasm/assemblyscript
+      entities:
+        - DaoAddressSet
+        - DaoFeeSet
+        - ExitFeeCooldownSet
+        - ExitFeeSet
+        - FundCreated
+        - MaximumSupportedAssetCountSet
+        - OwnershipTransferred
+        - ProxyCreated
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+      eventHandlers:
+        - event: DaoAddressSet(address)
+          handler: handleDaoAddressSet
+        - event: DaoFeeSet(uint256,uint256)
+          handler: handleDaoFeeSet
+        - event: ExitFeeCooldownSet(uint256)
+          handler: handleExitFeeCooldownSet
+        - event: ExitFeeSet(uint256,uint256)
+          handler: handleExitFeeSet
+        - event: FundCreated(address,bool,string,string,address,uint256,uint256,uint256)
+          handler: handleFundCreated
+        - event: MaximumSupportedAssetCountSet(uint256)
+          handler: handleMaximumSupportedAssetCountSet
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: ProxyCreated(address)
+          handler: handleProxyCreated
+      file: ./src/mapping.ts
