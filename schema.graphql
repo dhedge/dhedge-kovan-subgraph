@@ -47,3 +47,117 @@ type ProxyCreated @entity {
   id: ID!
   proxy: Bytes! # address
 }
+
+type Approval @entity {
+  id: ID!
+  owner: Bytes! # address
+  spender: Bytes! # address
+  value: BigInt! # uint256
+}
+
+type AssetAdded @entity {
+  id: ID!
+  fundAddress: Bytes! # address
+  manager: Bytes! # address
+  assetKey: Bytes! # bytes32
+}
+
+type AssetRemoved @entity {
+  id: ID!
+  fundAddress: Bytes! # address
+  manager: Bytes! # address
+  assetKey: Bytes! # address
+}
+
+type Deposit @entity {
+  id: ID!
+  fundAddress: Bytes! # address
+  investor: Bytes! # address
+  valueDeposited: BigInt! # uint256
+  fundTokensReceived: BigInt! # uint256
+  totalInvestorFundTokens: BigInt! # uint256
+  fundValue: BigInt! # uint256
+  totalSupply: BigInt! # uint256
+  time: BigInt! # uint256
+  manager: Bytes! # address
+  pool: Pool!
+}
+
+type Exchange @entity {
+  id: ID!
+  fundAddress: Bytes! # address
+  manager: Bytes! # address
+  sourceKey: Bytes! # bytes32
+  sourceAmount: BigInt! # uint256
+  destinationKey: Bytes! # bytes32
+  destinationAmount: BigInt! # uint256
+  time: BigInt! # uint256
+  totalSupply: BigInt! # uint256
+  fundValue: BigInt! # uint256
+  pool: Pool!
+}
+
+type ManagerFeeMinted @entity {
+  id: ID!
+  pool: Bytes! # address
+  manager: Bytes! # address
+  available: BigInt! # uint256
+  daoFee: BigInt! # uint256
+  managerFee: BigInt! # uint256
+  tokenPriceAtLastFeeMint: BigInt! # uint256
+}
+
+type ManagerFeeSet @entity {
+  id: ID!
+  fundAddress: Bytes! # address
+  manager: Bytes! # address
+  numerator: BigInt! # uint256
+  denominator: BigInt! # uint256
+}
+
+type ManagerUpdated @entity {
+  id: ID!
+  newManager: Bytes! # address
+  newManagerName: String! # string
+}
+
+type PoolPrivacyUpdated @entity {
+  id: ID!
+  isPoolPrivate: Boolean! # bool
+}
+
+type Transfer @entity {
+  id: ID!
+  from: Bytes! # address
+  to: Bytes! # address
+  value: BigInt! # uint256
+}
+
+type Withdrawal @entity {
+  id: ID!
+  fundAddress: Bytes! # address
+  investor: Bytes! # address
+  valueWithdrawn: BigInt! # uint256
+  fundTokensWithdrawn: BigInt! # uint256
+  totalInvestorFundTokens: BigInt! # uint256
+  fundValue: BigInt! # uint256
+  totalSupply: BigInt! # uint256
+  time: BigInt! # uint256
+  manager: Bytes! # address
+  pool: Pool!
+}
+
+type Pool @entity {
+  id: ID!
+  fundAddress: Bytes! # address
+  name: String! # string
+  manager: Bytes! # address
+  managerName: String! # string`
+  totalSupply: BigInt! # uint256
+  fundValue: BigInt! # uint256
+  tokenPrice: BigInt! # uint256
+  exchanges: [Exchange!]! @derivedFrom(field: "pool")
+  deposits: [Deposit!]! @derivedFrom(field: "pool")
+  withdrawals: [Withdrawal!]! @derivedFrom(field: "pool")
+  isPrivatePool: Boolean! # bool
+}

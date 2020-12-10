@@ -1,16 +1,17 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: Contract
+    name: DHedgeFactory
     network: kovan
     source:
-      address: "0xc3F42F64AD9A7C55D4e5970459f8CE8069456408"
-      abi: Contract
+      address: '0xc3F42F64AD9A7C55D4e5970459f8CE8069456408'
+      abi: DHedgeFactory
+      startBlock: 22241088
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.2
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
         - DaoAddressSet
@@ -22,8 +23,8 @@ dataSources:
         - OwnershipTransferred
         - ProxyCreated
       abis:
-        - name: Contract
-          file: ./abis/Contract.json
+        - name: DHedgeFactory
+          file: ./abis/DHedgeFactory.json
       eventHandlers:
         - event: DaoAddressSet(address)
           handler: handleDaoAddressSet
@@ -41,4 +42,54 @@ dataSources:
           handler: handleOwnershipTransferred
         - event: ProxyCreated(address)
           handler: handleProxyCreated
-      file: ./src/mapping.ts
+      file: ./src/factory.ts
+templates:
+  - kind: ethereum/contract
+    name: DHedge
+    network: kovan
+    source:
+      abi: DHedge
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - AssetAdded
+        - AssetRemoved
+        - Deposit
+        - Exchange
+        - ManagerFeeMinted
+        - ManagerFeeSet
+        - ManagerUpdated
+        - PoolPrivacyUpdated
+        - Transfer
+        - Withdrawal
+        - Pool
+      abis:
+        - name: DHedge
+          file: ./abis/DHedge.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: AssetAdded(address,address,bytes32)
+          handler: handleAssetAdded
+        - event: AssetRemoved(address,address,bytes32)
+          handler: handleAssetRemoved
+        - event: Deposit(address,address,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleDeposit
+        - event: Exchange(address,address,bytes32,uint256,bytes32,uint256,uint256)
+          handler: handleExchange
+        - event: ManagerFeeMinted(address,address,uint256,uint256,uint256,uint256)
+          handler: handleManagerFeeMinted
+        - event: ManagerFeeSet(address,address,uint256,uint256)
+          handler: handleManagerFeeSet
+        - event: ManagerUpdated(address,string)
+          handler: handleManagerUpdated
+        - event: PoolPrivacyUpdated(bool)
+          handler: handlePoolPrivacyUpdated
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Withdrawal(address,address,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleWithdrawal
+      file: ./src/dhedge.ts
