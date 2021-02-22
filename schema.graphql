@@ -80,6 +80,7 @@ type Deposit @entity {
   totalSupply: BigInt! # uint256
   time: BigInt! # uint256
   manager: Bytes! # address
+  blockNumber: Int!
   pool: Pool!
 }
 
