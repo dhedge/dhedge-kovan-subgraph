@@ -95,6 +95,7 @@ type Exchange @entity {
   time: BigInt! # uint256
   totalSupply: BigInt! # uint256
   fundValue: BigInt! # uint256
+  blockNumber: Int!
   pool: Pool!
 }
 
