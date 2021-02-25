@@ -124,6 +124,7 @@ export function handleExchange(event: ExchangeEvent): void {
   entity.destinationKey = event.params.destinationKey;
   entity.destinationAmount = event.params.destinationAmount;
   entity.time = event.params.time;
+  entity.blockNumber = event.block.number.toI32();
   entity.pool = pool.id;
   entity.save();
 }
