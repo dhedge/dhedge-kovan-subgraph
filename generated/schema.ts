@@ -948,6 +948,15 @@ export class ManagerFeeMinted extends Entity {
   set tokenPriceAtLastFeeMint(value: BigInt) {
     this.set("tokenPriceAtLastFeeMint", Value.fromBigInt(value));
   }
+
+  get blockNumber(): i32 {
+    let value = this.get("blockNumber");
+    return value.toI32();
+  }
+
+  set blockNumber(value: i32) {
+    this.set("blockNumber", Value.fromI32(value));
+  }
 }
 
 export class ManagerFeeSet extends Entity {
