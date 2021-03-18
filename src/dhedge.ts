@@ -133,13 +133,26 @@ export function handleManagerFeeMinted(event: ManagerFeeMintedEvent): void {
   let entity = new ManagerFeeMinted(
     event.transaction.hash.toHex() + '-' + event.logIndex.toString()
   );
+  let contract = DHedge.bind(event.address);
+
+  let id = dataSource.address().toHexString();
+  let pool = Pool.load(id);
+  if (!pool) {
+    pool = new Pool(id);
+    pool.fundAddress = event.params.pool;
+  }
+
   entity.pool = event.params.pool;
   entity.manager = event.params.manager;
   entity.available = event.params.available;
   entity.daoFee = event.params.daoFee;
   entity.managerFee = event.params.managerFee;
   entity.tokenPriceAtLastFeeMint = event.params.tokenPriceAtLastFeeMint;
+  entity.blockNumber = event.block.number.toI32();
   entity.save();
+
+  pool.totalSupply = contract.totalSupply();
+  pool.save();
 }
 
 export function handleManagerFeeSet(event: ManagerFeeSetEvent): void {
