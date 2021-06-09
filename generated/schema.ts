@@ -957,6 +957,24 @@ export class ManagerFeeMinted extends Entity {
   set blockNumber(value: i32) {
     this.set("blockNumber", Value.fromI32(value));
   }
+
+  get tokenPriceAtLastFeeMintUsd(): BigDecimal {
+    let value = this.get("tokenPriceAtLastFeeMintUsd");
+    return value.toBigDecimal();
+  }
+
+  set tokenPriceAtLastFeeMintUsd(value: BigDecimal) {
+    this.set("tokenPriceAtLastFeeMintUsd", Value.fromBigDecimal(value));
+  }
+
+  get managerFeesEarnedUsd(): BigDecimal {
+    let value = this.get("managerFeesEarnedUsd");
+    return value.toBigDecimal();
+  }
+
+  set managerFeesEarnedUsd(value: BigDecimal) {
+    this.set("managerFeesEarnedUsd", Value.fromBigDecimal(value));
+  }
 }
 
 export class ManagerFeeSet extends Entity {
