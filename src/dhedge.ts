@@ -26,7 +26,7 @@ import {
   Withdrawal,
   Pool,
 } from '../generated/schema';
-import { dataSource } from '@graphprotocol/graph-ts';
+import { dataSource, log, BigInt, BigDecimal } from '@graphprotocol/graph-ts';
 
 export function handleApproval(event: ApprovalEvent): void {
   let entity = new Approval(
@@ -149,6 +149,15 @@ export function handleManagerFeeMinted(event: ManagerFeeMintedEvent): void {
   entity.managerFee = event.params.managerFee;
   entity.tokenPriceAtLastFeeMint = event.params.tokenPriceAtLastFeeMint;
   entity.blockNumber = event.block.number.toI32();
+
+  let precision = BigInt.fromI32(10).pow(18).toBigDecimal();
+  let usdValue = entity.tokenPriceAtLastFeeMint.toBigDecimal();
+  let managerFeeTokens = entity.managerFee.toBigDecimal()
+
+  entity.tokenPriceAtLastFeeMintUsd = usdValue / precision;
+  let managerFeeTokensFormatted = managerFeeTokens / precision;
+
+  entity.managerFeesEarnedUsd = managerFeeTokensFormatted * entity.tokenPriceAtLastFeeMintUsd;
   entity.save();
 
   pool.totalSupply = contract.totalSupply();
