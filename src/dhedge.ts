@@ -11,7 +11,7 @@ import {
   Transfer as TransferEvent,
   Withdrawal as WithdrawalEvent,
   DHedge,
-} from '../generated/templates/Dhedge/Dhedge';
+} from '../generated/templates/DHedge/DHedge';
 import {
   Approval,
   AssetAdded,
@@ -199,6 +199,8 @@ export function handleTransfer(event: TransferEvent): void {
   entity.from = event.params.from;
   entity.to = event.params.to;
   entity.value = event.params.value;
+  entity.address = event.address.toHexString();
+  entity.block = event.block.number.toI32();
   entity.save();
 }
 

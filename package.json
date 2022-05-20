@@ -4,13 +4,13 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ hedgedon/dhedge-kovan",
-    "create-local": "graph create --node http://localhost:8020/ hedgedon/dhedge-kovan",
-    "remove-local": "graph remove --node http://localhost:8020/ hedgedon/dhedge-kovan",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 hedgedon/dhedge-kovan"
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ dhedge/dhedgekovan",
+    "create-local": "graph create --node http://localhost:8020/ dhedge/dhedgekovan",
+    "remove-local": "graph remove --node http://localhost:8020/ dhedge/dhedgekovan",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 dhedge/dhedgekovan"
   },
   "dependencies": {
-    "@graphprotocol/graph-cli": "0.18.0",
-    "@graphprotocol/graph-ts": "0.18.0"
+    "@graphprotocol/graph-cli": "0.20.0",
+    "@graphprotocol/graph-ts": "0.20.0"
   }
 }

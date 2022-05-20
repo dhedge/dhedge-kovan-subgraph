@@ -136,6 +136,8 @@ type Transfer @entity {
   from: Bytes! # address
   to: Bytes! # address
   value: BigInt! # uint256
+  address: String!
+  block: Int!
 }
 
 type Withdrawal @entity {
